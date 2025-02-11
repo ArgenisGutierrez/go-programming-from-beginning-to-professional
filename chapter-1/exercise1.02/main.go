@@ -1,3 +1,4 @@
+// Package main Declarar Variables dentro o fuera de las funciones
 package main
 
 import "fmt"

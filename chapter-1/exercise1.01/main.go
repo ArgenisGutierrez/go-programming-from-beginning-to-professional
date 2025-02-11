@@ -1,3 +1,4 @@
+// Package main Imprimir variables en consola
 package main
 
 import "fmt"

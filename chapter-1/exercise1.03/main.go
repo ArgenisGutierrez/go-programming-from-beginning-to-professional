@@ -1,3 +1,4 @@
+// Package main Definir variables Var + NameVar + Type + Value
 package main
 
 import (
