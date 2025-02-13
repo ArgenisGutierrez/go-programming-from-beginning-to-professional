@@ -1,0 +1,40 @@
+// Package main Printing a user's name based on user input
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func getUsers() map[string]string {
+	return map[string]string{
+		"305": "Sue",
+		"204": "Bob",
+		"631": "Jake",
+		"073": "Tracy",
+	}
+}
+
+func getUser(id string) (string,bool) {
+  users:= getUsers()
+  user,exist := users[id]
+  return user,exist
+}
+
+func main() {
+  if len(os.Args) < 2 {
+    fmt.Println("user ID not passed")
+    os.Exit(1)
+  }
+  userID := os.Args[1]
+  name,exist :=getUser(userID)
+  if !exist {
+    fmt.Printf("Passed user ID (%v) not found. \nUsers:\n",userID)
+    for key,value := range getUsers(){
+      fmt.Println("  ID:",key, "Name: ",value)
+    }
+    os.Exit(1)
+  }
+  fmt.Println("Hi,",name)
+}
+
