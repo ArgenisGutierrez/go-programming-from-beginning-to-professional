@@ -1,0 +1,55 @@
+// Package main creating a table that holds a series of numbers
+package main
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+func main() {
+	// crate the db connection
+	db, err := sql.Open("mysql", "arfhel:sheyla95@/go")
+	// check the connection
+	if err != nil {
+		panic(err)
+	} else {
+		fmt.Println("The connection to be the DB was successfully")
+	}
+
+	// check if the connection persist
+	if err := db.Ping(); err != nil {
+		panic(err)
+	} else {
+		fmt.Println("Good to go!")
+	}
+
+	// Query to execute
+	DBCreate := `
+  CREATE TABLE test (
+    id integer(15),
+    name varchar(50)
+  )
+  `
+	// execute the Query
+	_, err = db.Exec(DBCreate)
+	if err != nil {
+		panic(err)
+	} else {
+		fmt.Println("the table was successfully created")
+	}
+	defer db.Close()
+
+	insert, err := db.Prepare("INSERT INTO test VALUES (?,?)")
+	if err != nil {
+		panic(err)
+	}
+	_, err = insert.Exec(2, "second")
+	if err != nil {
+		panic(err)
+	}
+	defer insert.Close()
+	fmt.Println("The value was successfully inserted")
+
+}
