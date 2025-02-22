@@ -1,0 +1,40 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+func main() {
+	var (
+		name string
+		id   int = 3
+	)
+
+	db, err := sql.Open("mysql", "arfhel:sheyla95@/go")
+	if err != nil {
+		panic(err)
+	} else {
+		fmt.Println("The connection was successfully")
+	}
+
+	queryRow, err := db.Prepare("SELECT Property FROM Numbers WHERE Number=?")
+	if err != nil {
+		panic(err)
+	}
+
+	err = queryRow.QueryRow(id).Scan(&name)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("The name with id %d is %s\n", id, name)
+	err = queryRow.Close()
+	if err != nil {
+		panic(err)
+	}
+
+	defer db.Close()
+}

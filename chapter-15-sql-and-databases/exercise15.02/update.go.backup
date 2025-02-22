@@ -1,0 +1,38 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+func main() {
+
+	db, err := sql.Open("mysql", "arfhel:sheyla95@/go")
+	if err != nil {
+		panic(err)
+	} else {
+		fmt.Println("The connection was successfully")
+	}
+
+	UpdateStatement := `
+  UPDATE Numbers
+  SET Property = ?
+  WHERE Number = ?
+  `
+	update, err := db.Prepare(UpdateStatement)
+
+	updateResul, err := update.Exec("adios",2)
+	if err != nil {
+		panic(err)
+	}
+
+	updatedTecords, err := updateResul.RowsAffected()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Number of records updated ", updatedTecords)
+
+	defer db.Close()
+}
