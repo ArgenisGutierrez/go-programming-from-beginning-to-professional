@@ -16,7 +16,7 @@ func main() {
 		primeSum  int64
 		newNumber int64
 	)
-	db, err := sql.Open("mysql", "arfhel:sheyla95@/go")
+	db, err := sql.Open("mysql", "user:password@/db")
 	if err != nil {
 		panic(err)
 	} else {

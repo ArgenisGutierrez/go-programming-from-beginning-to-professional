@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// create the db connection
-	db, err := sql.Open("mysql", "arfhel:sheyla95@/go")
+	db, err := sql.Open("mysql", "user:password@/db")
 	// check if the connection was successfully
 	if err != nil {
 		panic(err)
